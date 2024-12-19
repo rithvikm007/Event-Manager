@@ -1,0 +1,145 @@
+<%- layout("./layouts/boilerplate.ejs") %>
+
+<div class="max-w-7xl mx-auto p-8">
+    <h1 class="text-3xl font-bold mb-6">Update Event</h1>
+
+    <form
+        action="/events/update/<%= event._id %>"
+        method="POST"
+        class="bg-white shadow-lg rounded-lg p-6"
+    >
+        <div class="mb-4">
+            <label for="title" class="block text-lg font-medium text-gray-700"
+                >Event Title</label
+            >
+            <input
+                type="text"
+                id="title"
+                name="title"
+                value="<%= event.title %>"
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+            />
+        </div>
+
+        <div class="mb-4">
+            <label
+                for="description"
+                class="block text-lg font-medium text-gray-700"
+                >Event Description</label
+            >
+            <textarea
+                id="description"
+                name="description"
+                rows="4"
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+            >
+<%= event.description %></textarea
+            >
+        </div>
+
+        <div class="mb-4">
+            <label for="date" class="block text-lg font-medium text-gray-700"
+                >Event Date</label
+            >
+            <input
+                type="date"
+                id="date"
+                name="date"
+                value="<%= new Date(event.date).toISOString().split('T')[0] %>"
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+            />
+        </div>
+
+        <div class="mb-4">
+            <label for="time" class="block text-lg font-medium text-gray-700"
+                >Event Time</label
+            >
+            <input
+                type="time"
+                id="time"
+                name="time"
+                value="<%= event.time %>"
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+            />
+        </div>
+
+        <div class="mb-4">
+            <label for="venue" class="block text-lg font-medium text-gray-700"
+                >Event Venue</label
+            >
+            <input
+                type="text"
+                id="venue"
+                name="venue"
+                value="<%= event.venue %>"
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+            />
+        </div>
+
+        <div class="mb-4">
+            <label
+                for="capacity"
+                class="block text-lg font-medium text-gray-700"
+                >Event Capacity</label
+            >
+            <input
+                type="number"
+                id="capacity"
+                name="capacity"
+                value="<%= event.capacity %>"
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+            />
+        </div>
+
+        <div class="mb-4">
+            <label
+                for="organizer"
+                class="block text-lg font-medium text-gray-700"
+                >Event Organizer</label
+            >
+            <input
+                type="text"
+                id="organizer"
+                name="organizer"
+                value="<%= event.organizer %>"
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+            />
+        </div>
+
+        <div class="mb-4">
+            <label for="tags" class="block text-lg font-medium text-gray-700"
+                >Event Tags</label
+            >
+            <input
+                type="text"
+                id="tags"
+                name="tags"
+                value="<%= event.tags.join(', ') %>"
+                class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <small class="text-gray-500">Enter tags separated by commas</small>
+        </div>
+
+        <div class="flex items-center justify-between">
+            <button
+                type="submit"
+                class="inline-block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700"
+            >
+                Update Event
+            </button>
+            <a
+                href="/events/<%= event._id %>"
+                class="inline-block text-blue-500 hover:text-blue-700"
+            >
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>

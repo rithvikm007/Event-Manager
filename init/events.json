@@ -1,0 +1,12 @@
+[
+    {
+        "title": "Workshop",
+        "description": "Workshop Conducted by CSEA",
+        "date": "2024-12-20T00:00:00.000Z",
+        "time": "18:00",
+        "venue": "Aryabhatta",
+        "capacity": 100,
+        "organizer": "CSEA",
+        "tags": ["workshop, technology"]
+    }
+]

@@ -33,14 +33,18 @@ router.get("/update/:id", async (req, res) => {
     res.render("event/update", { event });
 });
 
-router.post("/update/:id", async (req, res) => {
-    const { name, description, date, location, contact } = req.body;
+router.put("/update/:id", async (req, res) => {
+    const { title, description, date, time, venue, capacity, organizer, tags } =
+        req.body;
     await Event.findByIdAndUpdate(req.params.id, {
-        name,
+        title,
         description,
         date,
-        location,
-        contact,
+        time,
+        venue,
+        capacity,
+        organizer,
+        tags: tags.split(",").map((tag) => tag.trim()),
     });
     res.redirect(`/events/${req.params.id}`);
 });

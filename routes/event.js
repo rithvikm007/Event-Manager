@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Event = require("../models/event");
+const Student = require("../models/student");
+const Registration = require("../models/registration");
 
 // GET all Events
 router.get("/all", async (req, res) => {
@@ -53,6 +55,25 @@ router.put("/update/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     await Event.findByIdAndDelete(req.params.id);
     res.redirect("/events/all");
+});
+
+router.get("/register/:id", (req, res) => {
+    const eventId = req.params.id;
+    res.render("event/register", { eventId });
+});
+
+router.post("/register/:id", async (req, res) => {
+    const eventId = req.params.id;
+    const { studentId, name, department, year } = req.body;
+    const registration = new Registration({
+        eventId,
+        studentId,
+        name,
+        department,
+        year,
+    });
+    await registration.save();
+    res.redirect(`/events/${eventId}`);
 });
 
 module.exports = router;

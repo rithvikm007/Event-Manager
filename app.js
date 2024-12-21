@@ -11,6 +11,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const Student = require("./models/student");
+const Event = require("./models/event");
+const Registration = require("./models/registration");
 
 const initializePassport = require("./passport-config");
 initializePassport(passport);
@@ -65,6 +67,39 @@ app.use("/events", eventRoutes);
 const studentRoutes = require("./routes/student");
 app.use("/students", studentRoutes);
 
-app.get("/", (req, res) => {
-    res.send("Hello World!");
+// Home Page Route
+app.get("/", async (req, res) => {
+    const user = req.user;
+
+    if (!user) {
+        return res.render("home", {
+            user: null,
+            organizedEvents: null,
+            registeredEvents: null,
+        });
+    }
+
+    // Find all events organized by the user
+    const organizedRegistrations = await Registration.find({
+        studentId: user._id,
+        role: "organizer",
+    });
+    const organizedEventIds = organizedRegistrations.map((reg) => reg.eventId);
+    const organizedEvents = await Event.find({
+        _id: { $in: organizedEventIds },
+    });
+
+    // Find all events the user is registered for
+    const registeredRegistrations = await Registration.find({
+        studentId: user._id,
+        role: "participant",
+    });
+    const registeredEventIds = registeredRegistrations.map(
+        (reg) => reg.eventId
+    );
+    const registeredEvents = await Event.find({
+        _id: { $in: registeredEventIds },
+    });
+
+    res.render("home", { user, organizedEvents, registeredEvents });
 });

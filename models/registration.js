@@ -17,6 +17,11 @@ const registrationSchema = new mongoose.Schema(
             enum: ["present", "absent"],
             default: "absent",
         },
+        role: {
+            type: String,
+            enum: ["participant", "organizer"],
+            default: "participant",
+        },
         feedback: { type: String, default: "" },
     },
     {

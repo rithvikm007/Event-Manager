@@ -10,44 +10,38 @@
         method="POST"
         class="space-y-4"
     >
-        <div>
-            <label
-                for="studentId"
-                class="block text-sm font-medium text-gray-700"
-                >Student ID</label
-            >
-            <input
-                type="text"
-                id="studentId"
-                name="studentId"
-                class="w-full p-2 border border-gray-300 rounded-md"
-                required
-            />
-        </div>
+        <input
+            type="hidden"
+            id="studentId"
+            name="studentId"
+            value="<%= currUser.studentId %>"
+        />
 
         <div>
-            <label for="name" class="block text-sm font-medium text-gray-700"
-                >Name</label
-            >
+            <label for="name" class="block text-sm font-medium text-gray-700">
+                Name
+            </label>
             <input
                 type="text"
                 id="name"
                 name="name"
-                class="w-full p-2 border border-gray-300 rounded-md"
-                required
+                class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed"
+                value="<%= currUser.name %>"
+                readonly
             />
         </div>
 
         <div>
-            <label for="email" class="block text-sm font-medium text-gray-700"
-                >Email</label
-            >
+            <label for="email" class="block text-sm font-medium text-gray-700">
+                Email
+            </label>
             <input
                 type="email"
                 id="email"
                 name="email"
-                class="w-full p-2 border border-gray-300 rounded-md"
-                required
+                class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed"
+                value="<%= currUser.email %>"
+                readonly
             />
         </div>
 
@@ -55,27 +49,30 @@
             <label
                 for="department"
                 class="block text-sm font-medium text-gray-700"
-                >Department</label
             >
+                Department
+            </label>
             <input
                 type="text"
                 id="department"
                 name="department"
-                class="w-full p-2 border border-gray-300 rounded-md"
-                required
+                class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed"
+                value="<%= currUser.department %>"
+                readonly
             />
         </div>
 
         <div>
-            <label for="year" class="block text-sm font-medium text-gray-700"
-                >Year</label
-            >
+            <label for="year" class="block text-sm font-medium text-gray-700">
+                Year
+            </label>
             <input
                 type="number"
                 id="year"
                 name="year"
-                class="w-full p-2 border border-gray-300 rounded-md"
-                required
+                class="w-full p-2 border border-gray-300 rounded-md bg-gray-100 text-gray-500 cursor-not-allowed"
+                value="<%= currUser.year %>"
+                readonly
             />
         </div>
 

@@ -1,8 +1,14 @@
 <%- layout("./layouts/boilerplate.ejs") %>
+
 <div class="max-w-7xl mx-auto p-8">
-    <h1 class="text-3xl font-bold mb-6">All Events</h1>
+    <h1 class="text-3xl font-bold mb-6">Your Organized Events</h1>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% events.forEach(event => { %>
+        <% if (events.length === 0) { %>
+        <p class="text-lg text-gray-500">
+            You are not organizing any events at the moment.
+        </p>
+        <% } else { %> <% events.forEach(event => { %>
         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
             <div class="p-6">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">
@@ -13,6 +19,11 @@
                     Date: <%= new Date(event.date).toLocaleDateString() %>
                 </p>
                 <p class="text-sm text-gray-500">Venue: <%= event.venue %></p>
+                <p class="text-sm text-gray-500">Time: <%= event.time %></p>
+                <p class="text-sm text-gray-500">
+                    Capacity: <%= event.capacity %>
+                </p>
+
                 <div class="mt-6 flex flex-wrap gap-2">
                     <a
                         href="/events/<%= event._id %>"
@@ -20,8 +31,6 @@
                     >
                         View Details
                     </a>
-
-                    <% if (event.isOrganizer) { %>
                     <a
                         href="/events/update/<%= event._id %>"
                         class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-700 w-[150px]"
@@ -40,10 +49,9 @@
                             Delete Event
                         </button>
                     </form>
-                    <% } %>
                 </div>
             </div>
         </div>
-        <% }) %>
+        <% }) %> <% } %>
     </div>
 </div>

@@ -1,0 +1,117 @@
+<%- layout("./layouts/boilerplate.ejs") %>
+
+<div class="max-w-7xl mx-auto p-8">
+    <!-- Home Page Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Home</h1>
+        <p class="text-lg text-gray-600">Welcome to the Event Portal!</p>
+    </div>
+
+    <!-- If user is logged in -->
+    <% if (user) { %>
+    <!-- My Organized Events Section -->
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">
+            My Organized Events
+        </h2>
+
+        <% if (organizedEvents.length === 0) { %>
+        <p class="text-gray-600">You have not organized any events yet.</p>
+        <% } else { %>
+        <ul class="space-y-4">
+            <% organizedEvents.forEach(event => { %>
+            <li class="flex justify-between items-center">
+                <div>
+                    <p class="font-semibold text-gray-800">
+                        <%= event.title %>
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        Date: <%= new Date(event.date).toLocaleDateString() %>
+                    </p>
+                    <p class="text-sm text-gray-500">Time: <%= event.time %></p>
+                </div>
+                <a
+                    href="/events/<%= event._id %>"
+                    class="text-blue-500 hover:text-blue-700"
+                >
+                    View Details
+                </a>
+            </li>
+            <% }) %>
+        </ul>
+        <% } %>
+
+        <div class="mt-6">
+            <a
+                href="/events/my-events"
+                class="inline-block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700"
+            >
+                View All My Organized Events
+            </a>
+        </div>
+    </div>
+
+    <!-- My Registered Events Section -->
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">
+            My Registered Events
+        </h2>
+
+        <% if (registeredEvents.length === 0) { %>
+        <p class="text-gray-600">You have not registered for any events yet.</p>
+        <% } else { %>
+        <ul class="space-y-4">
+            <% registeredEvents.forEach(event => { %>
+            <li class="flex justify-between items-center">
+                <div>
+                    <p class="font-semibold text-gray-800">
+                        <%= event.title %>
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        Date: <%= new Date(event.date).toLocaleDateString() %>
+                    </p>
+                    <p class="text-sm text-gray-500">Time: <%= event.time %></p>
+                </div>
+                <a
+                    href="/events/<%= event._id %>"
+                    class="text-blue-500 hover:text-blue-700"
+                >
+                    View Details
+                </a>
+            </li>
+            <% }) %>
+        </ul>
+        <% } %>
+
+        <div class="mt-6">
+            <a
+                href="/events/registered"
+                class="inline-block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700"
+            >
+                View All My Registered Events
+            </a>
+        </div>
+    </div>
+
+    <% } else { %>
+    <!-- Message if the user is not logged in -->
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">
+            Log In to See Your Events
+        </h2>
+        <p class="text-gray-600">
+            Please log in to view and manage the events you are organizing or
+            participating in.
+        </p>
+
+        <div class="mt-6">
+            <a
+                href="/students/login"
+                class="inline-block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700"
+            >
+                Log In
+            </a>
+        </div>
+    </div>
+    <% } %>
+</div>

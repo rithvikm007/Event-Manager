@@ -12,11 +12,6 @@ const studentSchema = new mongoose.Schema({
     },
     department: { type: String, required: true },
     year: { type: Number, required: true },
-    role: {
-        type: String,
-        enum: ["participant", "organizer"],
-        default: "participant",
-    },
 });
 
 module.exports = mongoose.model("Student", studentSchema);

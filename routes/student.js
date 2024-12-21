@@ -2,16 +2,21 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const Student = require("../models/student");
-
+const {
+    checkAuthenticated,
+    checkNotAuthenticated,
+    saveRedirectUrl,
+} = require("../middleware");
 const router = express.Router();
 
 //GET Register Page
-router.get("/register", (req, res) => {
+router.get("/register", checkNotAuthenticated, (req, res) => {
     res.render("student/register");
 });
 
 // Register Handler
-router.post("/register", async (req, res) => {
+// Register Handler
+router.post("/register", checkNotAuthenticated, async (req, res) => {
     const { studentId, name, email, department, year, password } = req.body;
 
     try {
@@ -36,7 +41,9 @@ router.post("/register", async (req, res) => {
         });
 
         await newStudent.save();
-        res.redirect("/students/login");
+
+        // Redirect to the previous page or default to events page
+        res.redirect(res.locals.redirectUrl || "/");
     } catch (err) {
         console.error(err);
         req.flash("error", "An error occurred. Please try again.");
@@ -47,23 +54,23 @@ router.post("/register", async (req, res) => {
 // Login Handler
 router.post(
     "/login",
+    saveRedirectUrl,
     passport.authenticate("local", {
-        successRedirect: "/events/all",
         failureRedirect: "/students/login",
         failureFlash: true,
     }),
     (req, res) => {
-        req.flash("success_msg", "You have logged in successfully.");
-        res.redirect("/events/all");
+        req.flash("success", "You have logged in successfully.");
+        res.redirect(res.locals.redirectUrl || "/");
     }
 );
 
-router.get("/login", (req, res) => {
+router.get("/login", checkNotAuthenticated, (req, res) => {
     res.render("student/login");
 });
 
 // Logout Handler
-router.get("/logout", (req, res) => {
+router.get("/logout", checkAuthenticated, (req, res) => {
     req.logout((err) => {
         if (err) {
             console.error(err);

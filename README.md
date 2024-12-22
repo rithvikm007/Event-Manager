@@ -6,7 +6,7 @@ This system allows students to create, register for, and manage events. It inclu
 ## Description
 This web service helps manage events, registrations, and attendance for students. It offers CRUD operations for events, student registration, feedback submission, and attendance tracking. The system uses role-based access control (RBAC) to distinguish between event organizers and participants, with authentication handled via Passport.js and password hashing using bcryptjs. Data is stored in MongoDB and the project is built using Node.js and Express.js. The application is hosted on [Render](https://event-manager-fjub.onrender.com).
 
----
+
 
 ## Features
 - Event Creation and Management
@@ -16,7 +16,7 @@ This web service helps manage events, registrations, and attendance for students
 - Attendance Tracking
 
 
----
+
 
 
 ## Event Routes
@@ -48,7 +48,7 @@ This web service helps manage events, registrations, and attendance for students
 - **POST** `/students/login`: Login
 - **GET** `/students/logout`: Logout
 
----
+
 
 ## Sample Data in the Database
 

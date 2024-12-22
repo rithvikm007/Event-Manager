@@ -47,6 +47,9 @@ This web service helps manage events, registrations, and attendance for students
 - **GET** `/students/login`: Login (form)
 - **POST** `/students/login`: Login
 - **GET** `/students/logout`: Logout
+- **GET** `/students/profile/:id`: View a student's profile
+- **PUT** `/students/profile/:id`: Update a student's profile
+
 
 
 

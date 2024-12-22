@@ -85,4 +85,46 @@ router.get("/logout", checkAuthenticated, (req, res) => {
     });
 });
 
+//GET Profile
+router.get("/profile/:id", checkAuthenticated, async (req, res) => {
+    try {
+        const studentId = req.params.id;
+        const student = await Student.findById(studentId);
+
+        if (!student) {
+            req.flash("error", "Student not found.");
+            return res.redirect("/");
+        }
+
+        res.render("student/profile", { student });
+    } catch (err) {
+        req.flash("error", "An error occurred. Please try again.");
+        res.redirect("/");
+    }
+});
+
+router.post("/profile/:id", checkAuthenticated, async (req, res) => {
+    try {
+        const { name, email, department, year } = req.body;
+        const studentId = req.params.id;
+
+        const updatedStudent = await Student.findByIdAndUpdate(
+            studentId,
+            { name, email, department, year },
+            { new: true }
+        );
+
+        if (!updatedStudent) {
+            req.flash("error", "Student not found.");
+            return res.redirect("/");
+        }
+
+        req.flash("success", "Profile updated successfully");
+        res.redirect(`/students/profile/${studentId}`);
+    } catch (err) {
+        req.flash("error", "An error occurred. Please try again.");
+        res.redirect(`/students/profile/${studentId}`);
+    }
+});
+
 module.exports = router;

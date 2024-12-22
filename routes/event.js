@@ -198,13 +198,34 @@ router.post("/register/:id", checkAuthenticated, async (req, res) => {
 router.get("/attendance/:id", checkOrganizer, async (req, res) => {
     const eventId = req.params.id;
 
-    const registrations = await Registration.find({
-        eventId,
-        role: "participant",
-    });
-    const students = await Student.find();
+    try {
+        const registrations = await Registration.find({
+            eventId,
+            role: "participant",
+        });
+        const students = await Student.find();
 
-    res.render("event/attendance", { registrations, students, eventId });
+        // Calculate attendance percentage
+        const totalRegistrations = registrations.length;
+        const presentCount = registrations.filter(
+            (registration) => registration.attendanceStatus === "present"
+        ).length;
+        const attendancePercentage =
+            totalRegistrations > 0
+                ? ((presentCount / totalRegistrations) * 100).toFixed(2)
+                : 0;
+
+        // Pass data to the front-end
+        res.render("event/attendance", {
+            registrations,
+            students,
+            eventId,
+            attendancePercentage,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error retrieving attendance data");
+    }
 });
 
 //POST Attendance

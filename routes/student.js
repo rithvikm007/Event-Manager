@@ -103,7 +103,7 @@ router.get("/profile/:id", checkAuthenticated, async (req, res) => {
     }
 });
 
-router.post("/profile/:id", checkAuthenticated, async (req, res) => {
+router.put("/profile/:id", checkAuthenticated, async (req, res) => {
     try {
         const { name, email, department, year } = req.body;
         const studentId = req.params.id;
@@ -122,6 +122,7 @@ router.post("/profile/:id", checkAuthenticated, async (req, res) => {
         req.flash("success", "Profile updated successfully");
         res.redirect(`/students/profile/${studentId}`);
     } catch (err) {
+        const studentId = req.params.id;
         req.flash("error", "An error occurred. Please try again.");
         res.redirect(`/students/profile/${studentId}`);
     }

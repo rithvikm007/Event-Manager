@@ -1,55 +1,54 @@
 <%- layout("./layouts/boilerplate.ejs") %>
 <div class="max-w-7xl mx-auto p-8">
     <h1 class="text-3xl font-bold mb-6">All Events</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% events.forEach(event => { %>
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-            <div class="p-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-4">
-                    <%= event.title %>
-                </h2>
-                <p class="text-gray-600 mb-4"><%= event.description %></p>
-                <p class="text-sm text-gray-500">
-                    Date: <%= new Date(event.date).toLocaleDateString() %>
-                </p>
-                <p class="text-sm text-gray-500">Venue: <%= event.venue %></p>
-                <div class="mt-6 flex flex-wrap gap-2">
-                    <a
-                        href="/events/<%= event._id %>"
-                        class="inline-block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 w-[150px]"
-                    >
-                        View Details
-                    </a>
 
-                    <% if (event.isOrganizer) { %>
-                    <a
-                        href="/events/attendance/<%= event._id %>"
-                        class="px-6 py-2 text-white text-center bg-blue-500 rounded-md hover:bg-blue-700 w-[150px]"
+    <% events.forEach(event => { %>
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">
+                <%= event.title %>
+            </h2>
+            <p class="text-gray-600 mb-4"><%= event.description %></p>
+            <p class="text-sm text-gray-500">
+                Date: <%= new Date(event.date).toLocaleDateString() %>
+            </p>
+            <p class="text-sm text-gray-500">Venue: <%= event.venue %></p>
+            <div class="mt-6 flex flex-wrap gap-2">
+                <a
+                    href="/events/<%= event._id %>"
+                    class="inline-block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 w-[150px]"
+                >
+                    View Details
+                </a>
+
+                <% if (event.isOrganizer) { %>
+                <a
+                    href="/events/attendance/<%= event._id %>"
+                    class="px-6 py-2 text-white text-center bg-blue-500 rounded-md hover:bg-blue-700 w-[150px]"
+                >
+                    Attendance</a
+                >
+                <a
+                    href="/events/update/<%= event._id %>"
+                    class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-700 w-[150px]"
+                >
+                    Update Event
+                </a>
+                <form
+                    action="/events/<%= event._id %>?_method=DELETE"
+                    method="POST"
+                    class="inline-block"
+                >
+                    <button
+                        type="submit"
+                        class="px-6 py-2 text-white bg-red-500 rounded-md hover:bg-red-700 w-[150px]"
                     >
-                        Attendance</a
-                    >
-                    <a
-                        href="/events/update/<%= event._id %>"
-                        class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-700 w-[150px]"
-                    >
-                        Update Event
-                    </a>
-                    <form
-                        action="/events/<%= event._id %>?_method=DELETE"
-                        method="POST"
-                        class="inline-block"
-                    >
-                        <button
-                            type="submit"
-                            class="px-6 py-2 text-white bg-red-500 rounded-md hover:bg-red-700 w-[150px]"
-                        >
-                            Delete Event
-                        </button>
-                    </form>
-                    <% } %>
-                </div>
+                        Delete Event
+                    </button>
+                </form>
+                <% } %>
             </div>
         </div>
-        <% }) %>
     </div>
+    <% }) %>
 </div>

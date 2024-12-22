@@ -5,6 +5,12 @@
 
     <% if (registrations.length === 0) { %>
     <p class="text-gray-700">You have not registered for any events yet.</p>
+    <a
+        href="/events/all"
+        class="inline-block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 w-[150px] mt-3"
+    >
+        Browse Events
+    </a>
     <% } else { %>
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -62,7 +68,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                     <a
                         href="/events/<%= registration.eventId._id %>"
-                        class="text-blue-500 hover:text-blue-700 underline decoration-blue-500 hover:decoration-blue-700"
+                        class="text-blue-500 hover:text-blue-700 no-underline decoration-blue-500 hover:decoration-blue-700"
                     >
                         View Details &raquo;
                     </a>

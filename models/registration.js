@@ -23,6 +23,7 @@ const registrationSchema = new mongoose.Schema(
             default: "participant",
         },
         feedback: { type: String, default: "" },
+        rating: { type: Number, min: 1, max: 5, default: null },
     },
     {
         timestamps: true,

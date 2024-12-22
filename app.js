@@ -79,7 +79,6 @@ app.get("/", async (req, res) => {
         });
     }
 
-    // Find all events organized by the user
     const organizedRegistrations = await Registration.find({
         studentId: user._id,
         role: "organizer",
@@ -89,7 +88,6 @@ app.get("/", async (req, res) => {
         _id: { $in: organizedEventIds },
     });
 
-    // Find all events the user is registered for
     const registeredRegistrations = await Registration.find({
         studentId: user._id,
         role: "participant",
@@ -100,6 +98,6 @@ app.get("/", async (req, res) => {
     const registeredEvents = await Event.find({
         _id: { $in: registeredEventIds },
     });
-
+    // console.log(registeredEvents);
     res.render("home", { user, organizedEvents, registeredEvents });
 });

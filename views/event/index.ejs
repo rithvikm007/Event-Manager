@@ -23,6 +23,12 @@
 
                     <% if (event.isOrganizer) { %>
                     <a
+                        href="/events/attendance/<%= event._id %>"
+                        class="px-6 py-2 text-white text-center bg-blue-500 rounded-md hover:bg-blue-700 w-[150px]"
+                    >
+                        Attendance</a
+                    >
+                    <a
                         href="/events/update/<%= event._id %>"
                         class="inline-block px-6 py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-700 w-[150px]"
                     >

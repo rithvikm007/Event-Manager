@@ -1,0 +1,64 @@
+<%- layout("./layouts/boilerplate.ejs") %>
+
+<div class="max-w-7xl mx-auto p-8">
+    <h1 class="text-3xl font-bold mb-6">
+        <%= registration ? 'Edit Feedback for Event' : 'Give Feedback for Event' %>: <%= eventId %>
+    </h1>
+
+    <form
+        method="POST"
+        action="/events/feedback/<%= eventId %>"
+        class="space-y-6"
+    >
+        <input
+            type="hidden"
+            name="studentId"
+            value="<%= registration ? registration.studentId : req.user._id %>"
+        />
+
+        <div class="mb-4">
+            <label
+                for="feedback"
+                class="block text-sm font-medium text-gray-700"
+                >Your Feedback</label
+            >
+            <textarea
+                id="feedback"
+                name="feedback"
+                rows="4"
+                class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter your feedback here..."
+                required
+            ><%= registration ? registration.feedback : '' %></textarea>
+        </div>
+
+        <div class="mb-4">
+            <label
+                for="rating"
+                class="block text-sm font-medium text-gray-700"
+                >Your Rating (1-5)</label
+            >
+            <select
+                id="rating"
+                name="rating"
+                class="mt-1 block w-full p-2 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+            >
+                <option value="1" <%= registration && registration.rating === '1' ? 'selected' : '' %>>1 - Poor</option>
+                <option value="2" <%= registration && registration.rating === '2' ? 'selected' : '' %>>2 - Fair</option>
+                <option value="3" <%= registration && registration.rating === '3' ? 'selected' : '' %>>3 - Good</option>
+                <option value="4" <%= registration && registration.rating === '4' ? 'selected' : '' %>>4 - Very Good</option>
+                <option value="5" <%= registration && registration.rating === '5' ? 'selected' : '' %>>5 - Excellent</option>
+            </select>
+        </div>
+
+        <div class="mt-6">
+            <button
+                type="submit"
+                class="inline-block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-700"
+            >
+                Submit Feedback
+            </button>
+        </div>
+    </form>
+</div>

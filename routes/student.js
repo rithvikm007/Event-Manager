@@ -15,7 +15,6 @@ router.get("/register", checkNotAuthenticated, (req, res) => {
 });
 
 // Register Handler
-// Register Handler
 router.post("/register", checkNotAuthenticated, async (req, res) => {
     const { studentId, name, email, department, year, password } = req.body;
 
@@ -42,10 +41,15 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
 
         await newStudent.save();
 
-        // Redirect to the previous page or default to events page
-        res.redirect(res.locals.redirectUrl || "/");
+        req.login(newStudent, (err) => {
+            if (err) {
+                console.error(err);
+                req.flash("error", "An error occurred. Please try again.");
+                return res.render("student/register");
+            }
+            res.redirect(res.locals.redirectUrl || "/");
+        });
     } catch (err) {
-        console.error(err);
         req.flash("error", "An error occurred. Please try again.");
         res.render("student/register");
     }
